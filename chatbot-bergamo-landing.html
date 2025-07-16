@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot AI per la tua Attività | Bergamo e Provincia</title>
+    <meta name="description" content="Crea il tuo chatbot AI personalizzato in 48h. Risposte automatiche per FAQ, orari, servizi e preventivi. Perfetto per B&B, ristoranti, artigiani e professionisti di Bergamo.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styles -->
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #1f2937;
+            --bg-secondary: #111827;
+            --border-color: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .hero .highlight {
+            color: var(--primary-color);
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-secondary {
+            background: var(--secondary-color);
+        }
+
+        .cta-secondary:hover {
+            background: #059669;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 60px;
+            margin-bottom: 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .testimonial-role {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .faq-item {
+            background: var(--bg-secondary);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: none;
+            border: none;
+            width: 100%;
+            padding: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--border-color);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pricing-card.popular {
+                transform: none;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">🤖 ChatBot Bergamo</div>
+            <ul class="nav-links">
+                <li><a href="#come-funziona">Come Funziona</a></li>
+                <li><a href="#prezzi">Prezzi</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contatti">Contatti</a></li>
+                <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Il tuo <span class="highlight">assistente AI</span> per rispondere ai clienti<br>24 ore su 24</h1>
+            <p class="subtitle">Perfetto per attività di Bergamo e provincia. Risposte automatiche a FAQ, orari, servizi e preventivi. Pronto in 48 ore!</p>
+            <a href="#contatti" class="cta-button">Richiedi Demo Gratuita</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Perché serve alla tua attività?</h2>
+            <p class="section-subtitle">Smetti di ripetere sempre le stesse risposte. Il tuo chatbot AI si occupa delle domande ricorrenti, tu ti concentri sul business.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Risparmia Tempo</h3>
+                    <p>Niente più telefonate ripetitive per orari, prezzi o disponibilità. Il bot risponde subito alle domande più comuni.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💼</div>
+                    <h3>Sempre Disponibile</h3>
+                    <p>I tuoi clienti ottengono risposte immediate 24/7, anche quando sei chiuso o occupato con altri clienti.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Su Misura per Te</h3>
+                    <p>Basato sui tuoi documenti, listino prezzi, orari e servizi. Parla come parleresti tu ai tuoi clienti.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Sicuro e Privato</h3>
+                    <p>I tuoi dati restano sui nostri server in Italia. Nessuna informazione condivisa con terze parti.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3>Facile da Usare</h3>
+                    <p>Installabile sul tuo sito web o accessibile tramite QR code. Nessuna app da scaricare per i clienti.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💡</div>
+                    <h3>Perfetto per Bergamo</h3>
+                    <p>Ideale per B&B, ristoranti, artigiani, studi professionali e attività commerciali della nostra provincia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="come-funziona">
+        <div class="container">
+            <h2 class="section-title">Come Funziona?</h2>
+            <p class="section-subtitle">Tre semplici passaggi per avere il tuo chatbot AI personalizzato</p>
+            
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Invii i Tuoi Materiali</h3>
+                    <p>Mandaci un PDF con le tue FAQ, il link del tuo sito web o semplicemente una lista di domande e risposte che vuoi che il bot conosca.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Creiamo il Tuo Bot</h3>
+                    <p>In 48 ore prepariamo il tuo assistente AI personalizzato con il tuo logo, i tuoi colori e il tuo stile di comunicazione.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Vai Online</h3>
+                    <p>Ricevi il link al tuo bot e il codice per installarlo sul sito. Oppure usa il QR code per farlo utilizzare ai clienti in negozio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="prezzi">
+        <div class="container">
+            <h2 class="section-title">Piani e Prezzi</h2>
+            <p class="section-subtitle">Scegli il piano più adatto alla tua attività</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in">
+                    <h3>Base</h3>
+                    <div class="price">€99</div>
+                    <div class="price-period">una tantum + hosting</div>
+                    <ul class="features-list">
+                        <li>1 chatbot personalizzato</li>
+                        <li>1 sorgente dati (PDF o sito)</li>
+                        <li>1 mese di hosting incluso</li>
+                        <li>Supporto via email</li>
+                        <li>Consegna in 48h</li>
+                    </ul>
+                    <a href="#contatti" class="cta-button">Inizia Ora</a>
+                </div>
+                
+                <div class="pricing-card popular fade-in">
+                    <div class="popular-badge">Più Richiesto</div>
+                    <h3>Pro</h3>
+                    <div class="price">€149</div>
+                    <div class="price-period">una tantum + hosting</div>
+                    <ul class="features-list">
+                        <li>1 chatbot con branding completo</li>
+                        <li>Fino a 3 sorgenti dati</li>
+                        <li>3 mesi di hosting incluso</li>
+                        <li>Supporto prioritario</li>
+                        <li>Installazione guidata</li>
+                        <li>2 revisioni incluse</li>
+                    </ul>
+                    <a href="#contatti" class="cta-button">Scegli Pro</a>
+                </div>
+                
+                <div class="pricing-card fade-in">
+                    <h3>Add-on</h3>
+                    <div class="price">€49</div>
+                    <div class="price-period">ciascuno</div>
+                    <ul class="features-list">
+                        <li>Supporto multilingua</li>
+                        <li>Integrazione WhatsApp</li>
+                        <li>Training mensile</li>
+                        <li>Analytics avanzate</li>
+                        <li>Backup automatico</li>
+                    </ul>
+                    <a href="#contatti" class="cta-button cta-secondary">Aggiungi</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Cosa Dicono i Nostri Clienti</h2>
+            <p class="section-subtitle">Imprenditori di Bergamo e provincia che hanno scelto il nostro servizio</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial fade-in">
+                    <p class="testimonial-text">"Fantastico! Il bot risponde perfettamente alle domande sui nostri menù e orari. I clienti sono più soddisfatti e io ho più tempo per cucinare."</p>
+                    <div class="testimonial-author">Marco Rossi</div>
+                    <div class="testimonial-role">Ristorante "Da Marco", Bergamo</div>
+                </div>
+                <div class="testimonial fade-in">
+                    <p class="testimonial-text">"Installato sul sito del mio B&B, ora i clienti trovano subito le info su check-in, colazione e servizi. Prenotazioni aumentate del 30%!"</p>
+                    <div class="testimonial-author">Anna Bianchi</div>
+                    <div class="testimonial-role">B&B "Casa Anna", Alzano Lombardo</div>
+                </div>
+                <div class="testimonial-grid">
+                    <p class="testimonial-text">"Come artigiano, ricevevo sempre le stesse domande sui tempi di consegna e preventivi. Ora il bot se ne occupa e posso concentrarmi sul lavoro."</p>
+                    <div class="testimonial-author">Giuseppe Verdi</div>
+                    <div class="testimonial-role">Falegnameria Verdi, Seriate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Domande Frequenti</h2>
+            <p class="section-subtitle">Tutto quello che devi sapere sul nostro servizio</p>
+            
+            <div class="faq-list">
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        È difficile da usare? Serve installare qualcosa?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Per niente! Ti forniamo un semplice link che puoi condividere o un codice da copiare sul tuo sito. Nessuna installazione, nessun software da scaricare. Funziona su qualsiasi dispositivo.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        I miei dati sono al sicuro?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Assolutamente sì. Utilizziamo server in Italia e la tecnologia AnythingLLM open source. I tuoi dati non vengono mai condivisi con terze parti o inviati a servizi esterni.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Posso modificare le risposte del bot?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Certamente! Puoi inviarci nuovi materiali o correzioni in qualsiasi momento. Con il piano Pro hai 2 revisioni incluse, altrimenti applichiamo una tariffa minima per gli aggiornamenti.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Quanto costa l'hosting mensile?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Dopo il periodo incluso nel piano scelto, l'hosting costa €19/mese. Include backup automatici, aggiornamenti di sicurezza e supporto tecnico.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        Funziona anche per attività molto specifiche?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sì! Abbiamo realizzato bot per studi medici, avvocati, consulenti, artigiani e commercianti. Ogni bot è personalizzato con il linguaggio e le informazioni specifiche della tua attività.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contatti">
+        <div class="container">
+            <h2 class="section-title">Pronto per il Tuo Chatbot?</h2>
+            <p class="section-subtitle">Contattaci per una demo gratuita o per iniziare subito</p>
+            
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="nome">Nome e Cognome</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input type="tel" id="telefono" name="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="attivita">Tipo di Attività</label>
+                        <input type="text" id="attivita" name="attivita" placeholder="es. Ristorante, B&B, Studio medico...">
+                    </div>
+                    <div class="form-group">
+                        <label for="messaggio">Messaggio</label>
+                        <textarea id="messaggio" name="messaggio" placeholder="Raccontaci della tua attività e di cosa hai bisogno..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Richiedi Demo Gratuita</button>
+                </form>
+            </div>
+            
+            <div style="margin-top: 3rem;">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>Oppure contattaci direttamente:</strong></p>
+                <p style="margin: 0.5rem 0;">📧 <a href="mailto:info@chatbotbergamo.it" style="color: var(--primary-color);">info@chatbotbergamo.it</a></p>
+                <p style="margin: 0.5rem 0;">📱 <a href="tel:+39035123456" style="color: var(--primary-color);">+39 035 123 456</a></p>
+                <p style="margin: 0.5rem 0;">📍 Bergamo e Provincia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ChatBot Bergamo</h3>
+                    <p>Soluzioni AI personalizzate per piccole e medie imprese della provincia di Bergamo. Assistenti virtuali intelligenti per automatizzare le risposte ai clienti.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Servizi</h3>
+                    <p><a href="#come-funziona">Come Funziona</a></p>
+                    <p><a href="#prezzi">Piani e Prezzi</a></p>
+                    <p><a href="#faq">FAQ</a></p>
+                    <p><a href="#contatti">Contatti</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Zone di Servizio</h3>
+                    <p>Bergamo Centro</p>
+                    <p>Alzano Lombardo</p>
+                    <p>Seriate</p>
+                    <p>Dalmine</p>
+                    <p>Tutta la Provincia</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contatti</h3>
+                    <p>📧 info@chatbotbergamo.it</p>
+                    <p>📱 +39 035 123 456</p>
+                    <p>📍 Bergamo, Lombardia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ChatBot Bergamo. Tutti i diritti riservati. | <a href="#">Privacy Policy</a> | <a href="#">Termini di Servizio</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        });
+
+        // FAQ Toggle
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            const isActive = answer.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                answer.classList.add('active');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission (placeholder)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Grazie per il tuo interesse! Ti contatteremo presto per la demo gratuita.');
+        });
+    </script>
+</body>
+</html>
