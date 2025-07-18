@@ -95,6 +95,82 @@
       </div>
     </div>
   </section>
+  <!-- Sezione FAQ moderna -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2 class="section-title">Domande frequenti (FAQ)</h2>
+      <p class="section-subtitle">Risposte rapide alle domande più comuni su ChatBot AI</p>
+      <div class="faq-list" role="list">
+        <div class="faq-item" tabindex="0">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq1">Cos'è un chatbot AI e come può aiutare la mia attività?</button>
+          <div class="faq-answer" id="faq1" hidden>
+            Un chatbot AI risponde automaticamente alle domande dei tuoi clienti, fornisce assistenza 24/7 e può gestire richieste, preventivi e informazioni, migliorando la presenza online e risparmiando tempo.
+          </div>
+        </div>
+        <div class="faq-item" tabindex="0">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq2">Quanto tempo serve per attivare il mio chatbot?</button>
+          <div class="faq-answer" id="faq2" hidden>
+            Il tuo chatbot personalizzato sarà pronto in 24-48 ore dalla ricezione dei tuoi documenti e delle informazioni necessarie.
+          </div>
+        </div>
+        <div class="faq-item" tabindex="0">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq3">Posso aggiornare i contenuti del mio chatbot?</button>
+          <div class="faq-answer" id="faq3" hidden>
+            Sì, puoi inviare nuovi documenti o aggiornamenti in qualsiasi momento. I piani Pro includono aggiornamenti mensili gratuiti.
+          </div>
+        </div>
+        <div class="faq-item" tabindex="0">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq4">I dati dei miei clienti sono al sicuro?</button>
+          <div class="faq-answer" id="faq4" hidden>
+            Certamente. Tutti i dati sono trattati secondo il GDPR e ospitati su server sicuri in Europa. Nessun dato viene condiviso con terzi.
+          </div>
+        </div>
+        <div class="faq-item" tabindex="0">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq5">Serve installare qualcosa sul mio sito?</button>
+          <div class="faq-answer" id="faq5" hidden>
+            No, il chatbot funziona tramite link o QR code dedicato. Se vuoi, puoi integrarlo facilmente anche sul tuo sito tramite iframe.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Sezione Contatti/Preventivo -->
+  <section class="contact-section" id="contatti">
+    <div class="container">
+      <h2 class="section-title">Richiedi informazioni o un preventivo</h2>
+      <p class="section-subtitle">Compila il modulo per ricevere una consulenza gratuita o un’offerta personalizzata per il tuo progetto chatbot AI.</p>
+      <form name="contact" method="POST" netlify netlify-honeypot="bot-field" class="contact-form" autocomplete="on">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hidden">
+          <label>Non compilare questo campo: <input name="bot-field" /></label>
+        </p>
+        <div class="form-row">
+          <label for="nome">Nome e Cognome*</label>
+          <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Il tuo nome completo">
+        </div>
+        <div class="form-row">
+          <label for="email">Email*</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="esempio@email.it">
+        </div>
+        <div class="form-row">
+          <label for="telefono">Telefono (opzionale)</label>
+          <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="(+39) 333 1234567">
+        </div>
+        <div class="form-row">
+          <label for="messaggio">Messaggio / Descrizione progetto*</label>
+          <textarea id="messaggio" name="messaggio" rows="5" required placeholder="Descrivi la tua esigenza o il progetto..."></textarea>
+        </div>
+        <div class="form-row form-privacy">
+          <input type="checkbox" id="privacy" name="privacy" required>
+          <label for="privacy">Ho letto e accetto la <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>*</label>
+        </div>
+        <button type="submit" class="cta-button" aria-label="Invia richiesta">Invia richiesta</button>
+        <div class="form-success" style="display:none;">Grazie! La tua richiesta è stata inviata.</div>
+        <div class="form-error" style="display:none;">Si è verificato un errore. Riprova più tardi.</div>
+      </form>
+    </div>
+  </section>
+
   <!-- CTA sticky mobile -->
   <a href='https://wa.me/391234567890' class='cta-sticky'>Attiva il tuo chatbot in 24h</a>
 
